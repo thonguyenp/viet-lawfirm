@@ -1,16 +1,13 @@
-// ==========================
-// Phần 1 — CONFIG FILES
-// ==========================
-
 // next.config.ts
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  reactStrictMode: true,
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "**.unsplash.com",
+        hostname: "images.unsplash.com",
       },
       {
         protocol: "https",
@@ -21,8 +18,14 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: "/images/:path*",
-        destination: "https://unsplash.com/:path*",
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "unsplash.com",
+          },
+        ],
+        destination: "/fallback-gold",
         permanent: false,
       },
     ];
