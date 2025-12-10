@@ -1,49 +1,63 @@
 "use client";
 
-import { Box, Stack } from "@mui/material";
+import {
+  Drawer,
+  Box,
+  Stack,
+  Typography,
+  IconButton
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import Link from "next/link";
 
-export interface MobileMenuProps {
+export default function MobileMenu({
+  open,
+  onClose
+}: {
   open: boolean;
   onClose: () => void;
-}
+}) {
+  const navItems = [
+    { label: "Giới thiệu", href: "/gioi-thieu" },
+    { label: "Tầm nhìn", href: "/tam-nhin" },
+    { label: "Dịch vụ", href: "/dich-vu" },
+    { label: "Đội ngũ", href: "/doi-ngu" },
+    { label: "Liên hệ", href: "/lien-he" }
+  ];
 
-export default function MobileMenu({ open, onClose }: MobileMenuProps) {
   return (
-    <Box
-      sx={{
-        position: "fixed",
-        top: 0,
-        right: open ? 0 : "-100%",
-        width: "75%",
-        height: "100vh",
-        background: "#000",
-        color: "#fff",
-        zIndex: 9999,
-        transition: "0.3s ease",
-        padding: 4
-      }}
-    >
-      <Stack gap={3} fontFamily="Inter" fontSize={20}>
-        <Box onClick={onClose}>
-          <Link href="/gioi-thieu">Giới thiệu</Link>
-        </Box>
-        <Box onClick={onClose}>
-          <Link href="/dich-vu">Dịch vụ</Link>
-        </Box>
-        <Box onClick={onClose}>
-          <Link href="/du-an">Dự án</Link>
-        </Box>
-        <Box onClick={onClose}>
-          <Link href="/doi-ngu">Đội ngũ</Link>
-        </Box>
-        <Box onClick={onClose}>
-          <Link href="/tam-nhin">Tầm nhìn</Link>
-        </Box>
-        <Box onClick={onClose}>
-          <Link href="/lien-he">Liên hệ</Link>
-        </Box>
-      </Stack>
-    </Box>
+    <Drawer anchor="right" open={open} onClose={onClose}>
+      <Box sx={{ width: 260, p: 3 }}>
+        <Stack direction="row" justifyContent="space-between">
+          <Typography
+            variant="h6"
+            sx={{ fontFamily: "Playfair Display", fontWeight: 700 }}
+          >
+            Menu
+          </Typography>
+          <IconButton onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
+        </Stack>
+
+        <Stack spacing={2} sx={{ mt: 4 }}>
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={onClose}
+              style={{
+                fontSize: 18,
+                color: "#0d47a1",
+                textDecoration: "none",
+                fontWeight: 600
+              }}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </Stack>
+      </Box>
+    </Drawer>
   );
 }

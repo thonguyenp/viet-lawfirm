@@ -1,92 +1,77 @@
 "use client";
 
-import { Box, Stack, Container, Button } from "@mui/material";
-import Link from "next/link";
-import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
+import Link from "next/link";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  Typography,
+  Stack,
+  IconButton
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import MobileMenu from "./MobileMenu";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
 
-  const handleOpenMenu = () => setOpen(true);
-  const handleCloseMenu = () => setOpen(false);
+  const navItems = [
+    { label: "Giới thiệu", href: "/gioi-thieu" },
+    { label: "Tầm nhìn", href: "/tam-nhin" },
+    { label: "Dịch vụ", href: "/dich-vu" },
+    { label: "Đội ngũ", href: "/doi-ngu" },
+    { label: "Liên hệ", href: "/lien-he" }
+  ];
 
   return (
     <>
-      <Box
-        sx={{
-          position: "fixed",
-          top: 0,
-          width: "100%",
-          zIndex: 999,
-          backdropFilter: "blur(10px)",
-          borderBottom: "1px solid rgba(255,255,255,0.1)",
-          background: "rgba(0,0,0,0.4)"
-        }}
-      >
-        <Container maxWidth="lg">
+      <AppBar position="sticky" elevation={0} sx={{ bgcolor: "#0d47a1" }}>
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Typography
+            variant="h5"
+            sx={{
+              fontFamily: "Playfair Display",
+              fontWeight: 700,
+              cursor: "pointer"
+            }}
+          >
+            <Link href="/" style={{ color: "#fff", textDecoration: "none" }}>
+              Công Ty Luật Việt Minh
+            </Link>
+          </Typography>
+
           <Stack
             direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            sx={{ height: 70 }}
+            spacing={4}
+            sx={{ display: { xs: "none", md: "flex" } }}
           >
-            <Link href="/">
-              <Box
-                sx={{
-                  fontFamily: "Cinzel",
-                  fontSize: 24,
-                  fontWeight: 700,
-                  color: "#d4af37"
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                style={{
+                  color: "white",
+                  fontWeight: 500,
+                  textDecoration: "none",
+                  transition: "0.3s"
                 }}
               >
-                VIET LAWFIRM
-              </Box>
-            </Link>
-
-            <Stack
-              direction="row"
-              gap={4}
-              sx={{
-                display: { xs: "none", md: "flex" },
-                color: "#fff",
-                fontFamily: "Inter"
-              }}
-            >
-              <Link href="/gioi-thieu">Giới thiệu</Link>
-              <Link href="/dich-vu">Dịch vụ</Link>
-              <Link href="/du-an">Dự án</Link>
-              <Link href="/doi-ngu">Đội ngũ</Link>
-              <Link href="/tam-nhin">Tầm nhìn</Link>
-              <Link href="/lien-he">Liên hệ</Link>
-            </Stack>
-
-            <Stack direction="row" gap={2} alignItems="center">
-              <Button
-                variant="contained"
-                sx={{
-                  background: "#d4af37",
-                  color: "#000",
-                  fontWeight: 700,
-                  display: { xs: "none", md: "flex" },
-                  ":hover": { background: "#c19d32" }
-                }}
-                href="/lien-he"
-              >
-                Tư vấn miễn phí
-              </Button>
-
-              <MenuIcon
-                onClick={handleOpenMenu}
-                sx={{ display: { xs: "block", md: "none" }, color: "#fff", cursor: "pointer" }}
-              />
-            </Stack>
+                {item.label}
+              </Link>
+            ))}
           </Stack>
-        </Container>
-      </Box>
 
-      <MobileMenu open={open} onClose={handleCloseMenu} />
+          <IconButton
+            sx={{ display: { xs: "flex", md: "none" }, color: "#fff" }}
+            onClick={() => setOpen(true)}
+          >
+            <MenuIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+
+      <MobileMenu open={open} onClose={() => setOpen(false)} />
     </>
   );
 }

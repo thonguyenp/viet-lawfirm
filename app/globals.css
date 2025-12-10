@@ -1,41 +1,36 @@
-/* globals.css — chỉ chứa CSS global, font sẽ import trong layout.tsx */
-
-html, body {
+/* RESET CƠ BẢN */
+* {
   margin: 0;
   padding: 0;
-  background-color: #ffffff;
-  color: #000000;
-  scroll-behavior: smooth;
-  font-family: var(--font-body);
-}
-
-* {
   box-sizing: border-box;
 }
 
-section {
-  width: 100%;
-  display: block;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-img {
-  object-fit: cover;
+html,
+body {
   max-width: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  font-family: 'Inter', sans-serif;
+  background: #ffffff;
+  color: #222;
 }
 
-/* fallback background vàng gold khi ảnh lỗi */
-.image-fallback {
-  background-color: #d4af37 !important;
+/* FONT IMPORT */
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap'); */
+
+/* ANIMATION NHẸ */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.8s ease forwards;
 }
 
-/* parallax nhẹ */
-.parallax {
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -1,30 +1,46 @@
-// ===============================
-// app/layout.tsx
-// ===============================
 import type { Metadata } from "next";
 import "./globals.css";
-import { Cinzel, Inter } from "next/font/google";
-
-const cinzel = Cinzel({ subsets: ["latin"], variable: "--font-cinzel" });
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+import ThemeRegistry from "@/theme/ThemeRegistry";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "VIET-LAWFIRM | Công ty tư vấn luật chuyên nghiệp",
-  description: "VIET-LAWFIRM – Bảo vệ quyền lợi của bạn với đội ngũ luật sư giàu kinh nghiệm.",
+  title: "Công Ty Luật Việt Minh – Công ty Luật hàng đầu Việt Nam",
+  description:
+    "Công Ty Luật Việt Minh cung cấp dịch vụ pháp lý chuyên nghiệp: tư vấn doanh nghiệp, đầu tư, hợp đồng, tranh tụng, sở hữu trí tuệ.",
+  keywords: [
+    "luật sư",
+    "công ty luật",
+    "tư vấn pháp lý",
+    "Công Ty Luật Việt Minh",
+    "dịch vụ pháp lý",
+  ],
   openGraph: {
-    title: "VIET-LAWFIRM",
-    description: "Dịch vụ tư vấn luật – Bảo vệ quyền lợi của bạn.",
-    url: "https://viet-lawfirm.example",
-    siteName: "VIET-LAWFIRM",
-    locale: "vi_VN",
-    type: "website",
+    title: "Công Ty Luật Việt Minh",
+    description:
+      "Dịch vụ pháp lý chuyên nghiệp – Tận tâm – Bảo mật – Hiệu quả",
+    url: "https://vietlawfirm.vn",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f",
+        width: 1200,
+        height: 630,
+        alt: "Law Firm",
+      },
+    ],
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="vi" className={`${cinzel.variable} ${inter.variable}`}>
-      <body>{children}</body>
+    <html lang="vi">
+      <body>
+        <ThemeRegistry>
+          <Header />
+          {children}
+          <Footer />
+        </ThemeRegistry>
+      </body>
     </html>
   );
 }
